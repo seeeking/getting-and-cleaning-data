@@ -1,0 +1,31 @@
+README
+-------------------------------------------------
+
+###Peer Project for Getting and Cleaning data
+
+Data from [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip ).
+
+After downloading and unzipping the data, the code cleans the data and write the tidy data to the file "datatidy.txt".
+
+The code mainly does the following things:
+
+- load relative files using `read.table`, which include "train/X_train.txt", "train/Y_train.txt", "test/X_test.txt", "test/Y_test.txt", "train/subject_train.txt", "test/subject_test.txt", "features.txt", "activity_labels.txt".
+
+- substitude the activity_labels in Y_test with descriptive names from "activity_labels.txt".
+
+- for train/test data set, first process them separately, add descriptive column names to every data frame.
+
+- for X_train/X_test, select columns whose names contain "mean" or "std" using `select(contains())`, add a column which represent the data is from "train" or "test" set. 
+
+- bind subject and activity column using `rbind`
+
+- merge train and test data using `cbind`, asign the data frame to `datatidy`
+
+- write `datatidy` to file using `write.table`
+
+I did not merge the train and test data first because I want to add the "label" column. To examine the result, we can load "datatidy.txt" and print part of it.
+
+```{r}
+data <- read.table("datatidy.txt", header = TRUE)
+print(data[1:10,1:6])
+```
